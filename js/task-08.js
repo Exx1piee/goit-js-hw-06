@@ -1,28 +1,26 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.querySelector('.login-form');
-  
-    loginForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-  
-      const emailInput = loginForm.elements.email;
-      const passwordInput = loginForm.elements.password;
-  
-    
-      if (emailInput.value === '' || passwordInput.value === '') {
-        alert('Все поля должны быть заполнены.');
-      } else {
-   
-        const formData = {
-          email: emailInput.value,
-          password: passwordInput.value
-        };
-  
-        console.log(formData);
-  
-        loginForm.reset();
-      }
-    });
+const loginForm = document.querySelector('.login-form');
+
+
+loginForm.addEventListener('submit', function (event) {
+
+  event.preventDefault();
+
+
+  const formData = new FormData(loginForm);
+
+
+  const formDataObject = {};
+
+  formData.forEach((value, name) => {
+    formDataObject[name] = value;
   });
-      console.log(formData);
-  
-      loginForm.reset();
+
+  if (!formDataObject.email || !formDataObject.password) {
+    alert('All fields must be filled');
+    return;
+  }
+
+  console.log(formDataObject);
+
+  loginForm.reset();
+});
